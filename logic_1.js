@@ -8,6 +8,7 @@ function createFeatures(earthquakeData) {
       layer.bindPopup("<h3>" + feature.properties.place +
         "</h3><hr><p>" + "<h3>Magnitude: " + feature.properties.mag + "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
     }
+    // style the markers based on earthquake magnitude
     function myStyle(feature) {
         return {
         radius: feature.properties.mag*5,
@@ -20,7 +21,6 @@ function createFeatures(earthquakeData) {
       
     };
 
-  
     // Create a GeoJSON layer containing the features array on the earthquakeData object
     // Run the onEachFeature function once for each piece of data in the array
     var earthquakes = L.geoJSON(earthquakeData, {
@@ -31,14 +31,6 @@ function createFeatures(earthquakeData) {
       }
     });
     
-
-
-
-  
-
-
-   
-  
     // Sending our earthquakes layer to the createMap function
     createMap(earthquakes);
 }
@@ -51,9 +43,7 @@ function createMap(earthquakes) {
       id: "mapbox.streets",
       accessToken: API_KEY
     });
-  
     
-  
     // Define a baseMaps object to hold our base layers
     var baseMaps = {
       "Street Map": streetmap,
@@ -98,6 +88,8 @@ function createMap(earthquakes) {
       collapsed: false
     }).addTo(myMap);
   }
+
+  // function to return color for legend and marker circle
 function getColor(d) {
     return d > 9  ? '#800026' :
         d > 8   ? '#bd0026' :
@@ -113,7 +105,6 @@ function getColor(d) {
 
 
 var APILink = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
-
 
 
 d3.json(APILink, createFeatures); 
