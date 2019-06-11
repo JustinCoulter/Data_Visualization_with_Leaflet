@@ -62,6 +62,8 @@ function createMap(earthquakes) {
       zoom: 4,
       layers: [streetmap, earthquakes]
     });
+
+    // add the legend
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function (map) {
